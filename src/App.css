@@ -3,3 +3,7 @@ h1 {
     text-align: center;
     font-stretch: ultra-condensed;
 }
+
+.cancel-img {
+    float: right;
+}
