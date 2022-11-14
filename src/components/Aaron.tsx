@@ -1,3 +1,4 @@
+import { MouseEventHandler } from 'react';
 import styled from 'styled-components';
 
 const Wrapper = styled.section`
@@ -38,12 +39,13 @@ const Button = styled.button`
   justify-content: space-around;
 `;
 
-export const Aaron = () => {
+export const Aaron = (props: { cancelNotification: MouseEventHandler<HTMLButtonElement> | undefined; }) => {
+
   return (
     <>
       <Wrapper>
         <Box>
-          <Button>
+          <Button onClick={props.cancelNotification}>
             <img src='./assets/cross.png' alt='cancel the notification' />
           </Button>
         </Box>

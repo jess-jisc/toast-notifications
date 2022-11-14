@@ -45,15 +45,19 @@ const Wrapper = styled.section`
 
 function App() {
 
-const [displayNotification, setDisplayNotifcation] = useState<boolean>(false)
+const [displayNotification, setDisplayNotification] = useState<boolean>(false)
 
 const handleClick = () => {
-  setDisplayNotifcation(true)
+  setDisplayNotification(true)
+  }
+
+  const cancelNotification = () => {
+    setDisplayNotification(false)
   }
 
   if (displayNotification) {
     setTimeout(() => {
-      setDisplayNotifcation(false)
+      setDisplayNotification(false)
     }, 10000)
   }
 
@@ -64,12 +68,12 @@ const handleClick = () => {
       </header>
       <Wrapper>
       <Box>
-        <Button onClick={handleClick}>Hire</Button>
-        <Button onClick={handleClick}>Promote</Button>
-        <Button onClick={handleClick}>Fire</Button>
+        <Button onClick={handleClick} id='1'>Hire</Button>
+        <Button onClick={handleClick} id='2'>Promote</Button>
+        <Button onClick={handleClick} id='3'>Fire</Button>
       </Box>
       </Wrapper>
-      {displayNotification && <Aaron/>}
+      {displayNotification && <Aaron cancelNotification={cancelNotification} />}
     </div>
   );
 }
