@@ -1,16 +1,23 @@
 import { MouseEventHandler } from 'react';
 import styled from 'styled-components';
+import '../App.css';
+import ToastList from '../Toast'
 
 const Wrapper = styled.section`
   display: flex;
-  height: 300px;
+  height: 100px;
 `;
 
-const Box = styled.section`
+const Toast = styled.section`
   width: 10em;
   padding: 4em;
-  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
-    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+  border-radius: 0.25rem;
+  padding: 0.75rem;
+  z-index: 999998;
+  justify-content: flex-start;
+  align-items: flex-start;
+  animation: toast-slide-up 0.3s;
+  will-change: transform;
   margin: auto;
 `;
 
@@ -20,8 +27,6 @@ const Button = styled.button`
   border-width: 0;
   color: #2f3e46;
   cursor: pointer;
-  font-family: 'Haas Grot Text R Web', 'Helvetica Neue', Helvetica, Arial,
-    sans-serif;
   font-size: 14px;
   font-weight: 500;
   line-height: 20px;
@@ -43,13 +48,20 @@ export const Aaron = (props: { cancelNotification: MouseEventHandler<HTMLButtonE
 
   return (
     <>
-      <Wrapper>
-        <Box>
+    {ToastList.map((toast, i) => {
+      if (i === toast.id) {
+        return (
+        <Wrapper key={i}>
+        <Toast style={{backgroundColor: toast.backgroundColor}}>
+          {toast.text}
           <Button onClick={props.cancelNotification}>
-            <img src='./assets/cross.png' alt='cancel the notification' />
+            <img src={require('../assets/cross.png')} alt={`cancel the notification ${toast.name}`} className='cancel-img' />
           </Button>
-        </Box>
+        </Toast>
       </Wrapper>
+      )
+    }
+  })}
     </>
   );
 };

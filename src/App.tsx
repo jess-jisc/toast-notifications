@@ -55,11 +55,11 @@ const handleClick = () => {
     setDisplayNotification(false)
   }
 
-  if (displayNotification) {
-    setTimeout(() => {
-      setDisplayNotification(false)
-    }, 10000)
-  }
+  // if (displayNotification) {
+  //   setTimeout(() => {
+  //     setDisplayNotification(false)
+  //   }, 10000)
+  // }
 
   return (
     <div className='App'>
@@ -73,7 +73,7 @@ const handleClick = () => {
         <Button onClick={handleClick} id='3'>Fire</Button>
       </Box>
       </Wrapper>
-      {displayNotification && <Aaron cancelNotification={cancelNotification} />}
+      {displayNotification && <Aaron cancelNotification={cancelNotification}/>}
     </div>
   );
 }

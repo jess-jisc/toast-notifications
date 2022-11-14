@@ -5,7 +5,17 @@ h1 {
 }
 
 .cancel-img {
-    float: right;
+    width: 2em;
+}
+
+
+@keyframes toast-slide-up {
+    from {
+        transform: translateY(100%);
+    }
+    to {
+        transform: translateY(0);
+    }
 }
 
 /* .hire {
