@@ -1,7 +1,7 @@
+import { useState } from 'react';
 import { Aaron } from './components/Aaron';
 import styled from 'styled-components';
 import './App.css';
-import { useState } from 'react';
 
 const Button = styled.button`
   background-color: rgba(51, 51, 51, 0.05);
@@ -31,29 +31,62 @@ const Button = styled.button`
 const Box = styled.section`
   width: 10em;
   padding: 4em;
-  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
-  width: 300px; 
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
+    rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+  width: 300px;
   height: 25px;
-  margin: auto; 
+  margin: auto;
 `;
 
 const Wrapper = styled.section`
-    display: flex;
-    height: 300px;
-`
+  display: flex;
+  height: 300px;
+`;
 
+interface toast {
+  id: number,
+  name: string,
+  backgroundColor: string,
+  text: string,
+}
 
 function App() {
+  const [list, setList] = useState<any>([]);
+  const [displayNotification, setDisplayNotification] = useState<boolean>(
+    false
+  );
+  let toastProps: toast | null = null;
 
-const [displayNotification, setDisplayNotification] = useState<boolean>(false)
-
-const handleClick = () => {
-  setDisplayNotification(true)
-  }
-
-  const cancelNotification = () => {
-    setDisplayNotification(false)
-  }
+  const showToast = (type: any) => {
+    setDisplayNotification(true);
+    switch (type) {
+      case 'ok':
+        toastProps = {
+          id: 1,
+          name: 'Ok',
+          backgroundColor: '#D4EDDA',
+          text: 'Hire',
+        };
+        break;
+      case 'information':
+        toastProps = {
+          id: 2,
+          name: 'Promote',
+          backgroundColor: '#D1ECF1',
+          text: 'Information',
+        };
+        break;
+      case 'error':
+        toastProps = {
+          id: 3,
+          name: 'Error',
+          backgroundColor: '#F8D7DA',
+          text: 'Fire',
+        };
+        break;
+    }
+    setList([...list, toastProps]);
+  };
 
   // if (displayNotification) {
   //   setTimeout(() => {
@@ -67,13 +100,19 @@ const handleClick = () => {
         <h1>React Toast Notifications</h1>
       </header>
       <Wrapper>
-      <Box>
-        <Button onClick={handleClick} id='1'>Hire</Button>
-        <Button onClick={handleClick} id='2'>Promote</Button>
-        <Button onClick={handleClick} id='3'>Fire</Button>
-      </Box>
+        <Box>
+          <Button onClick={showToast} id='1'>
+            Hire
+          </Button>
+          <Button onClick={showToast} id='2'>
+            Promote
+          </Button>
+          <Button onClick={showToast} id='3'>
+            Fire
+          </Button>
+        </Box>
       </Wrapper>
-      {displayNotification && <Aaron cancelNotification={cancelNotification}/>}
+      {displayNotification ? <Aaron toastList={list} /> : null}
     </div>
   );
 }

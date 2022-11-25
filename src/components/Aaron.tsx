@@ -1,7 +1,6 @@
-import { MouseEventHandler } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import '../App.css';
-import ToastList from '../Toast'
 
 const Wrapper = styled.section`
   display: flex;
@@ -44,24 +43,21 @@ const Button = styled.button`
   justify-content: space-around;
 `;
 
-export const Aaron = (props: { cancelNotification: MouseEventHandler<HTMLButtonElement> | undefined; }) => {
-
+export const Aaron = (props: {toastList: any}) => {
   return (
-    <>
-    {ToastList.map((toast, i) => {
-      if (i === toast.id) {
+    <React.Fragment>
+    {props.toastList.map((toast: any, i: number) => {
         return (
         <Wrapper key={i}>
         <Toast style={{backgroundColor: toast.backgroundColor}}>
           {toast.text}
-          <Button onClick={props.cancelNotification}>
+          <Button>
             <img src={require('../assets/cross.png')} alt={`cancel the notification ${toast.name}`} className='cancel-img' />
           </Button>
         </Toast>
       </Wrapper>
       )
-    }
   })}
-    </>
+    </React.Fragment>
   );
 };
