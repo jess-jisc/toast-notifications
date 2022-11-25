@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Aaron } from './components/Aaron';
+import Aaron from './components/Aaron';
 import styled from 'styled-components';
 import './App.css';
 
@@ -50,11 +50,12 @@ interface toast {
   text: string,
 }
 
-function App() {
+const App = () => {
   const [list, setList] = useState<any>([]);
   const [displayNotification, setDisplayNotification] = useState<boolean>(
     false
   );
+
   let toastProps: toast | null = null;
 
   const showToast = (type: any) => {
@@ -101,18 +102,18 @@ function App() {
       </header>
       <Wrapper>
         <Box>
-          <Button onClick={showToast} id='1'>
+          <Button onClick={() => showToast('ok')} id='1'>
             Hire
           </Button>
-          <Button onClick={showToast} id='2'>
+          <Button onClick={() => showToast('information')} id='2'>
             Promote
           </Button>
-          <Button onClick={showToast} id='3'>
+          <Button onClick={() => showToast('error')} id='3'>
             Fire
           </Button>
         </Box>
       </Wrapper>
-      {displayNotification ? <Aaron toastList={list} /> : null}
+      {displayNotification ? <Aaron toastList={list} close={displayNotification} /> : null}
     </div>
   );
 }
