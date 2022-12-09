@@ -43,12 +43,7 @@ const Button = styled.button`
   justify-content: space-around;
 `;
 
-const Aaron = (props: {toastList: any, close: any}) => {
-
-  const closeToast = () => {
-    props.close.setDisplayNotification(false)
-  }
-
+const Aaron = (props: {toastList: any, closeToast: () => void}) => {
   return (
     <React.Fragment>
     {props.toastList.map((toast: any, i: number) => {
@@ -56,7 +51,7 @@ const Aaron = (props: {toastList: any, close: any}) => {
         <Wrapper key={i}>
         <Toast style={{backgroundColor: toast.backgroundColor}}>
           {toast.text}
-          <Button onClick={closeToast}>
+            <Button onClick={() => props.closeToast()}>
             <img src={require('../assets/cross.png')} alt={`cancel the notification ${toast.name}`} className='cancel-img' />
           </Button>
         </Toast>

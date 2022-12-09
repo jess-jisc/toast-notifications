@@ -43,11 +43,11 @@ const Wrapper = styled.section`
   height: 300px;
 `;
 
-interface toast {
-  id: number,
-  name: string,
-  backgroundColor: string,
-  text: string,
+enum toast {
+  id,
+  name,
+  backgroundColor,
+  text,
 }
 
 const App = () => {
@@ -55,15 +55,16 @@ const App = () => {
   const [displayNotification, setDisplayNotification] = useState<boolean>(
     false
   );
+  const [cancelToast, setCancelToast] = useState<boolean>(false)
 
-  let toastProps: toast | null = null;
+  let toastProps: any = [];
 
   const showToast = (type: any) => {
     setDisplayNotification(true);
     switch (type) {
       case 'ok':
         toastProps = {
-          id: 1,
+          id: '1',
           name: 'Ok',
           backgroundColor: '#D4EDDA',
           text: 'Hire',
@@ -71,7 +72,7 @@ const App = () => {
         break;
       case 'information':
         toastProps = {
-          id: 2,
+          id: '2',
           name: 'Promote',
           backgroundColor: '#D1ECF1',
           text: 'Information',
@@ -79,15 +80,23 @@ const App = () => {
         break;
       case 'error':
         toastProps = {
-          id: 3,
+          id: '3',
           name: 'Error',
           backgroundColor: '#F8D7DA',
           text: 'Fire',
         };
         break;
+        default: setDisplayNotification(false)
     }
     setList([...list, toastProps]);
+console.log(toastProps)
+    // setCancelToast(toastProps)
   };
+
+  const closeToast = () => {
+    // toastProps.splice(toastProps.findIndex((toast: { id: any; }) => toast.id), 1);
+    toastProps.slice(0, toastProps.length - 1);
+  }
 
   // if (displayNotification) {
   //   setTimeout(() => {
@@ -102,18 +111,18 @@ const App = () => {
       </header>
       <Wrapper>
         <Box>
-          <Button onClick={() => showToast('ok')} id='1'>
+          <Button onClick={() => showToast('ok')}>
             Hire
           </Button>
-          <Button onClick={() => showToast('information')} id='2'>
+          <Button onClick={() => showToast('information')}>
             Promote
           </Button>
-          <Button onClick={() => showToast('error')} id='3'>
+          <Button onClick={() => showToast('error')}>
             Fire
           </Button>
         </Box>
       </Wrapper>
-      {displayNotification ? <Aaron toastList={list} close={displayNotification} /> : null}
+      {displayNotification ? <Aaron toastList={list} closeToast={closeToast} /> : null}
     </div>
   );
 }
