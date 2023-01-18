@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import Aaron from './components/Aaron';
-import styled from 'styled-components';
 import './App.css';
+import styled from 'styled-components';
+import { v4 as uuidv4 } from 'uuid';
 
 const Button = styled.button`
   background-color: rgba(51, 51, 51, 0.05);
@@ -43,28 +44,19 @@ const Wrapper = styled.section`
   height: 300px;
 `;
 
-enum toast {
-  id,
-  name,
-  backgroundColor,
-  text,
-}
-
 const App = () => {
   const [list, setList] = useState<any>([]);
   const [displayNotification, setDisplayNotification] = useState<boolean>(
     false
   );
-  const [cancelToast, setCancelToast] = useState<boolean>(false)
 
   let toastProps: any = [];
-
+  
   const showToast = (type: any) => {
-    setDisplayNotification(true);
     switch (type) {
       case 'ok':
         toastProps = {
-          id: '1',
+          id: uuidv4(),
           name: 'Ok',
           backgroundColor: '#D4EDDA',
           text: 'Hire',
@@ -72,7 +64,7 @@ const App = () => {
         break;
       case 'information':
         toastProps = {
-          id: '2',
+          id: uuidv4(),
           name: 'Promote',
           backgroundColor: '#D1ECF1',
           text: 'Information',
@@ -80,22 +72,25 @@ const App = () => {
         break;
       case 'error':
         toastProps = {
-          id: '3',
+          id: uuidv4(),
           name: 'Error',
           backgroundColor: '#F8D7DA',
           text: 'Fire',
         };
         break;
-        default: setDisplayNotification(false)
     }
     setList([...list, toastProps]);
-console.log(toastProps)
-    // setCancelToast(toastProps)
   };
 
-  const closeToast = () => {
-    // toastProps.splice(toastProps.findIndex((toast: { id: any; }) => toast.id), 1);
-    toastProps.slice(0, toastProps.length - 1);
+  const closeToast = (id: number) => {
+    const toastCopy = list;
+
+    const toastIndex = toastCopy.findIndex((obj: any) => obj.id === id);
+    toastCopy.splice(toastIndex, 1);
+
+    setList(toastCopy);
+
+    return list;
   }
 
   // if (displayNotification) {

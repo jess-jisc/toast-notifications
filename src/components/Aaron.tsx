@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 import '../App.css';
 
@@ -43,22 +42,22 @@ const Button = styled.button`
   justify-content: space-around;
 `;
 
-const Aaron = (props: {toastList: any, closeToast: () => void}) => {
+const Aaron = (props: {toastList: any, closeToast: any}) => {
   return (
-    <React.Fragment>
+    <>
     {props.toastList.map((toast: any, i: number) => {
         return (
         <Wrapper key={i}>
         <Toast style={{backgroundColor: toast.backgroundColor}}>
           {toast.text}
-            <Button onClick={() => props.closeToast()}>
+            <Button onClick={props.closeToast}>
             <img src={require('../assets/cross.png')} alt={`cancel the notification ${toast.name}`} className='cancel-img' />
           </Button>
         </Toast>
       </Wrapper>
       )
   })}
-    </React.Fragment>
+    </>
   );
 };
 
